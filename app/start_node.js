@@ -10,4 +10,15 @@
 //   console.log("i'm here")
 //   document.getElementById("mytext").innerHTML = "it worked!"
 // });
-console.log(wtf.fetch('2018–19_Toronto_Raptors_season').then(doc => doc.section('Roster').json()))
+async function start() {
+  let middleSection = document.getElementById("test")
+  let g = document.createTextNode("hello");
+  middleSection.appendChild(g);
+  wtf.fetch('On a Friday', 'en', function(err, doc) {
+    var val = doc.infobox(0).get('current_members');
+    val.links().map(link => middleSection.appendChild(link.page));
+    //['Thom Yorke', 'Jonny Greenwood', 'Colin Greenwood'...]
+  });
+}
+
+start();
