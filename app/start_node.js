@@ -10,4 +10,4 @@
 //   console.log("i'm here")
 //   document.getElementById("mytext").innerHTML = "it worked!"
 // });
-console.log(wtf.fetch('2018–19_Toronto_Raptors_season').then(doc=> doc.section('Roster').json()))
+console.log(wtf.fetch('2018–19_Toronto_Raptors_season').then(doc => doc.section('Roster').json()))
