@@ -12,12 +12,22 @@
 // });
 async function start() {
   let middleSection = document.getElementById("test")
-  let g = document.createTextNode("hello");
-  middleSection.appendChild(g);
+  var h = document.createElement("li");
+  let g = document.createTextNode("first node");
+  h.appendChild(g);
+  middleSection.appendChild(h);
+  // var node;
   wtf.fetch('On a Friday', 'en', function(err, doc) {
     var val = doc.infobox(0).get('current_members');
-    val.links().map(link => middleSection.appendChild(link.page));
+    val.links().forEach(link => { 
+      var node = document.createElement("li")
+      let text = document.createTextNode(link.page);
+      node.appendChild(text);
+      middleSection.appendChild(node);
+      // middleSection.appendChild(document.createTextNode("hello"));
+    });
     //['Thom Yorke', 'Jonny Greenwood', 'Colin Greenwood'...]
+    console.log(val)
   });
 }
 
