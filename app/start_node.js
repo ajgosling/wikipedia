@@ -1,4 +1,4 @@
-async function start() {
+function start() {
   let middleSection = document.getElementById("test");
 
   let startInput = document.getElementById("start-input");
