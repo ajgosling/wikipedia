@@ -19,6 +19,17 @@ function start() {
       });
     }
   });
+
+  let svg = d3
+    .select("#wikiverse")
+    .append("svg")
+    .attr("id", "svg")
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 300 300")
+    .classed("svg-content", true)
+    .append("g")
+    .attr("transform", "translate(0,0)");
+
 }
 
 let startButton = document.getElementById("start");
