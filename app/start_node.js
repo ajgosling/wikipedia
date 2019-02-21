@@ -30,6 +30,8 @@ function start() {
     .append("g")
     .attr("transform", "translate(0,0)");
 
+  console.log(svg)
+
 }
 
 let startButton = document.getElementById("start");
