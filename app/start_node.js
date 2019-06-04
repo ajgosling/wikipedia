@@ -9,7 +9,7 @@ function start() {
       let text = document.createTextNode("invalid search");
       document.getElementById("error-message").appendChild(text);
     } else {
-      doc.links().forEach(link => { 
+      doc.links().forEach(link => {
         if (link.page) {
           var node = document.createElement("li")
           let text = document.createTextNode(link.page);
@@ -34,5 +34,5 @@ function start() {
 
 }
 
-let startButton = document.getElementById("start");
+let startButton = document.getElementById("begin");
 startButton.onclick = start;
