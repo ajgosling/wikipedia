@@ -7,10 +7,13 @@ div {
   flex-direction: column;
 }
 
-.svg-container {
-
-
-
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
+#start {
+  background-color: blue;
+}
 
