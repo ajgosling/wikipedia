@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.inputs input {
+  margin:
+}
+
 .content {
   display: flex;
   flex-direction: row;
