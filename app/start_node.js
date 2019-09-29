@@ -1,10 +1,12 @@
 async function start() {
-  let middleSection = document.getElementById("test");
+  let middleSection = document.getElementById("middle");
 
-  let startInput = document.getElementById("start-input");
-  console.log(startInput);
-  let doc = await wtf.fetch("Gold", "en");
-  console.log(doc);
+  let startInput = document.getElementById("start-input").value;
+  let doc = await wtf.fetch(startInput, "en");
+
+  if (!doc) {
+    middleSection.innerHTML = `Sorry, ${startInput} not found. Please check your spelling and try again!`;
+  }
   // wtf.fetch(startInput.value, 'en', function(err, doc) {
   //   if (!doc) {
   //     console.log("inside");
@@ -32,7 +34,7 @@ async function start() {
     .append("g")
     .attr("transform", "translate(0,0)");
 
-  console.log(svg)
+  console.log(svg);
 
 }
 
