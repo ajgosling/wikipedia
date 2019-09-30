@@ -2,6 +2,7 @@ async function start() {
   let middleSection = document.getElementById("middle");
 
   let startInput = document.getElementById("start-input").value;
+
   let doc = await wtf.fetch(startInput, "en");
 
   if (!doc) {
@@ -23,6 +24,19 @@ async function start() {
   //     });
   //   }
   // });
+
+  startNodeLinks = doc.links().map(link => ({
+    // returns an object
+    page: link.page,
+    origin: startInput,
+    // color: blue,
+    x: 100,
+    y: 100,
+    clicked: false,
+    radius: 4
+  }));
+
+  console.log(startNodeLinks);
 
   let svg = d3
     .select("#wikiverse")
