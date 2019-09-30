@@ -36,8 +36,6 @@ async function start() {
     radius: 4
   }));
 
-  console.log(startNodeLinks);
-
   let svg = d3
     .select("#wikiverse")
     .append("svg")
@@ -48,8 +46,25 @@ async function start() {
     .append("g")
     .attr("transform", "translate(0,0)");
 
-  console.log(svg);
+  let simulation = d3
+    .forceSimulation()
+    .force("x", d3.forceX(100).strength(0.00005))
+    .force("y", d3.forceY(100).strength(0.00005))
+    .force("collide", d3.forceCollide(function (d) {
+      return d.radius + 0.5;
+    }))
+    .alpha(100);
 
+
+  let circles = svg.selectAll()
+    .data(startNodeLinks)
+    .enter().append("circle")
+    .attr("class", "nodes")
+    .attr("id", function(d) {
+      return d.page;
+    })
+
+  console.log(circles);
 }
 
 let startButton = document.getElementById("begin");
