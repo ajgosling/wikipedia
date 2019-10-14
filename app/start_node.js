@@ -1,6 +1,6 @@
 async function start() {
-  let middleSection = document.getElementById("middle");
 
+  let middleSection = document.getElementById("middle");
   let startInput = document.getElementById("start-input").value;
 
   let doc = await wtf.fetch(startInput, "en");
@@ -62,7 +62,7 @@ async function start() {
     .attr("class", "nodes")
     .attr("id", function(d) {
       return d.page;
-    })
+    });
 
   console.log(circles);
 }
