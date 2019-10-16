@@ -36,6 +36,20 @@ async function start() {
     radius: 4
   }));
 
+  // set the dimensions and margins of the graph
+  // var margin = { top: 10, right: 30, bottom: 30, left: 40 },
+  //   width = 400 - margin.left - margin.right,
+  //   height = 400 - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  // var svg = d3.select("#my_dataviz")
+  //   .append("svg")
+  //   .attr("width", width + margin.left + margin.right)
+  //   .attr("height", height + margin.top + margin.bottom)
+  //   .append("g")
+  //   .attr("transform",
+  //     "translate(" + margin.left + "," + margin.top + ")");
+
   let svg = d3
     .select("#wikiverse")
     .append("svg")
@@ -45,26 +59,47 @@ async function start() {
     .classed("svg-content", true)
     .append("g")
     .attr("transform", "translate(0,0)");
+  // Initialize the links
+  var link = svg
+    .selectAll("line")
+    .data(data.links)
+    .enter()
+    .append("line")
+    .style("stroke", "#aaa")
 
-  let simulation = d3
-    .forceSimulation()
-    .force("x", d3.forceX(100).strength(0.00005))
-    .force("y", d3.forceY(100).strength(0.00005))
-    .force("collide", d3.forceCollide(function (d) {
-      return d.radius + 0.5;
-    }))
-    .alpha(100);
+  // let simulation = d3
+  //   .forceSimulation()
+  //   .force("x", d3.forceX(100).strength(0.00005))
+  //   .force("y", d3.forceY(100).strength(0.00005))
+  //   .force("collide", d3.forceCollide(function (d) {
+  //     return d.radius + 0.5;
+  //   }))
+  //   .alpha(100);
 
 
-  let circles = svg.selectAll()
-    .data(startNodeLinks)
-    .enter().append("circle")
-    .attr("class", "nodes")
-    .attr("id", function(d) {
-      return d.page;
-    });
+  // let circles = svg.selectAll()
+  //   .data(startNodeLinks)
+  //   .enter().append("circle")
+  //   .attr("class", "nodes")
+  //   .attr("id", function(d) {
+  //     return d.page;
+  //   });
 
-  console.log(circles);
+  // simulation.nodes(allNodes)
+  //   .on('tick', ticked);
+
+  // function ticked() {
+  //   circles
+  //     .attr("cx", function (d) {
+  //       // debugger
+  //       // simulation
+  //       return (d.x = Math.max(d.radius, Math.min(300 - d.radius, d.x))); //Width
+  //     })
+  //     .attr("cy", function (d) {
+  //       // simulation.alpha(.01)
+  //       return (d.y = Math.max(d.radius, Math.min(300 - d.radius, d.y)));
+  //     })
+  // };
 }
 
 let startButton = document.getElementById("begin");
