@@ -141,5 +141,6 @@ function ticked() {
   // };
 }
 
+
 let startButton = document.getElementById("begin");
 startButton.onclick = start;
