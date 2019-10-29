@@ -10,137 +10,69 @@ async function start() {
     middleSection.innerHTML = `Sorry, ${startInput} not found. Please check your spelling and try again!`;
   }
 
-  // wtf.fetch(startInput.value, 'en', function(err, doc) {
-  //   if (!doc) {
-  //     console.log("inside");
-  //     let text = document.createTextNode("invalid search");
-  //     document.getElementById("error-message").appendChild(text);
-  //   } else {
-  //     doc.links().forEach(link => {
-  //       if (link.page) {
-  //         var node = document.createElement("li")
-  //         let text = document.createTextNode(link.page);
-  //         node.appendChild(text);
-  //         middleSection.appendChild(node);
-  //       }
-  //     });
-  //   }
-  // });
+  data = await d3.json("https://gist.githubusercontent.com/mbostock/4062045/raw/5916d145c8c048a6e3086915a6be464467391c62/miserables.json");
 
-  startNodeLinks = doc.links().map(link => ({
-    // returns an object
-    page: link.page,
-    origin: startInput,
-    // color: blue,
-    x: 100,
-    y: 100,
-    clicked: false,
-    radius: 4
-  }));
+  console.log(data);
 
-  // set the dimensions and margins of the graph
-  // var margin = { top: 10, right: 30, bottom: 30, left: 40 },
-  //   width = 400 - margin.left - margin.right,
-  //   height = 400 - margin.top - margin.bottom;
+  // let chart = {
+  //   const links = data.links.map(d => Object.create(d));
+  //   const nodes = data.nodes.map(d => Object.create(d));
 
-  // append the svg object to the body of the page
-  // var svg = d3.select("#my_dataviz")
-  //   .append("svg")
-  //   .attr("width", width + margin.left + margin.right)
-  //   .attr("height", height + margin.top + margin.bottom)
-  //   .append("g")
-  //   .attr("transform",
-  //     "translate(" + margin.left + "," + margin.top + ")");
+  //   const simulation = d3.forceSimulation(nodes)
+  //     .force("link", d3.forceLink(links).id(d => d.id))
+  //     .force("charge", d3.forceManyBody())
+  //     .force("center", d3.forceCenter(width / 2, height / 2));
 
-  var margin = {top: 10, right: 30, bottom: 30, left: 40},
-  width = 400 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+  //   const svg = d3.create("svg")
+  //     .attr("viewBox", [0, 0, width, height]);
 
-  let svg = d3
-    .select("#wikiverse")
-    .append("svg")
-    .attr("id", "svg")
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 300 300")
-    .classed("svg-content", true)
-    .append("g")
-    .attr("transform", "translate(0,0)");
-  // Initialize the links
-  var link = svg
-    .selectAll("line")
-    .data(data.links)
-    .enter()
-    .append("line")
-    .style("stroke", "#aaa")
+  //   const link = svg.append("g")
+  //     .attr("stroke", "#999")
+  //     .attr("stroke-opacity", 0.6)
+  //     .selectAll("line")
+  //     .data(links)
+  //     .join("line")
+  //     .attr("stroke-width", d => Math.sqrt(d.value));
 
-  var node = svg
-    .selectAll("circle")
-    .data(data.nodes)
-    .enter()
-    .append("circle")
-    .attr("r", 20)
-    .style("fill", "#69b3a2")
-// Let's list the force we wanna apply on the network
-var simulation = d3.forceSimulation(data.nodes)   // Force algorithm is applied to data.nodes
-  .force("link", d3.forceLink()      // This force provides links between nodes
-    .id(function (d) { return d.id; })    // This provide  the id of a node
-    .links(data.links)       // and this the list of links
-  )
-  .force("charge", d3.forceManyBody().strength(-400))  // This adds repulsion between nodes. Play with the -400 for the repulsion strength
-  .force("center", d3.forceCenter(width / 2, height / 2)) // This force attracts nodes to the center of the svg area
-  .on("end", ticked);
+  //   const node = svg.append("g")
+  //     .attr("stroke", "#fff")
+  //     .attr("stroke-width", 1.5)
+  //     .selectAll("circle")
+  //     .data(nodes)
+  //     .join("circle")
+  //     .attr("r", 5)
+  //     .attr("fill", color)
+  //     .call(drag(simulation));
 
-// This function is run at each iteration of the force algorithm, updating the nodes position.
-function ticked() {
-  link
-    .attr("x1", function (d) { return d.source.x; })
-    .attr("y1", function (d) { return d.source.y; })
-    .attr("x2", function (d) { return d.target.x; })
-    .attr("y2", function (d) { return d.target.y; });
+  //   node.append("title")
+  //     .text(d => d.id);
 
-  node
-    .attr("cx", function (d) { return d.x + 6; })
-    .attr("cy", function (d) { return d.y - 6; });
-}
+  //   simulation.on("tick", () => {
+  //     link
+  //       .attr("x1", d => d.source.x)
+  //       .attr("y1", d => d.source.y)
+  //       .attr("x2", d => d.target.x)
+  //       .attr("y2", d => d.target.y);
 
-
-
-
-  // let simulation = d3
-  //   .forceSimulation()
-  //   .force("x", d3.forceX(100).strength(0.00005))
-  //   .force("y", d3.forceY(100).strength(0.00005))
-  //   .force("collide", d3.forceCollide(function (d) {
-  //     return d.radius + 0.5;
-  //   }))
-  //   .alpha(100);
-
-
-  // let circles = svg.selectAll()
-  //   .data(startNodeLinks)
-  //   .enter().append("circle")
-  //   .attr("class", "nodes")
-  //   .attr("id", function(d) {
-  //     return d.page;
+  //     node
+  //       .attr("cx", d => d.x)
+  //       .attr("cy", d => d.y);
   //   });
 
-  // simulation.nodes(allNodes)
-  //   .on('tick', ticked);
+  //   invalidation.then(() => simulation.stop());
 
-  // function ticked() {
-  //   circles
-  //     .attr("cx", function (d) {
-  //       // debugger
-  //       // simulation
-  //       return (d.x = Math.max(d.radius, Math.min(300 - d.radius, d.x))); //Width
-  //     })
-  //     .attr("cy", function (d) {
-  //       // simulation.alpha(.01)
-  //       return (d.y = Math.max(d.radius, Math.min(300 - d.radius, d.y)));
-  //     })
-  // };
+  //   return svg.node();
+  // }
+  // console.log(chart);
+
 }
 
 
 let startButton = document.getElementById("begin");
 startButton.onclick = start;
+
+document.addEventListener('keydown', e => {
+  if (e.code === "Enter") {
+    start();
+  }
+});
