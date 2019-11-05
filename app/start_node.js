@@ -1,4 +1,8 @@
 // import wikiLinks from './wiki_links';
+app.UseCors(builder => builder
+  .AllowAnyOrigin()
+  .AllowAnyMethod()
+  .AllowAnyHeader()
 
 async function start() {
   let middleSection = document.getElementById("middle");
@@ -10,9 +14,13 @@ async function start() {
     middleSection.innerHTML = `Sorry, ${startInput} not found. Please check your spelling and try again!`;
   }
 
-  data = await d3.json("https://gist.githubusercontent.com/mbostock/4062045/raw/5916d145c8c048a6e3086915a6be464467391c62/miserables.json");
+  // data = d3.json("https://gist.githubusercontent.com/mbostock/4062045/raw/5916d145c8c048a6e3086915a6be464467391c62/miserables.json");
+  d3.json("/data/employees.json").then(function(data) {
+    console.log(data[0]);
+  });
+  // let obj = JSON.parse(data);
+  // console.log(data);
 
-  console.log(data);
 
   // let chart = {
   //   const links = data.links.map(d => Object.create(d));
@@ -68,7 +76,10 @@ async function start() {
 }
 
 
+document.querySelector('input').value = "Gold";
+
 let startButton = document.getElementById("begin");
+
 startButton.onclick = start;
 
 document.addEventListener('keydown', e => {
@@ -76,3 +87,5 @@ document.addEventListener('keydown', e => {
     start();
   }
 });
+
+startButton.click();
