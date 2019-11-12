@@ -1,131 +1,89 @@
 // import wikiLinks from './wiki_links';
 
 async function start() {
-  let middleSection = document.getElementById("middle");
-  let startInput = document.getElementById("start-input").value;
+  var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
 
-  let doc = await wtf.fetch(startInput, "en");
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-  if (!doc) {
-    middleSection.innerHTML = `Sorry, ${startInput} not found. Please check your spelling and try again!`;
-  }
+  var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function (d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
 
-  // data = d3.json("https://gist.githubusercontent.com/mbostock/4062045/raw/5916d145c8c048a6e3086915a6be464467391c62/miserables.json");
+  d3.json("miserables.json", function (error, graph) {
+    if (error) throw error;
 
-  d3.json("https://gist.githubusercontent.com/mbostock/4062045/raw/5916d145c8c048a6e3086915a6be464467391c62/miserables.json", function(data) {
-
-    const links = data.links.map(d => Object.create(d));
-    const nodes = data.nodes.map(d => Object.create(d));
-
-    const height = 600;
-    const width = 800;
-    const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => d.id))
-      .force("charge", d3.forceManyBody())
-      .force("center", d3.forceCenter(width / 2, height / 2));
-
-    const svg = d3.select('#wikiverse');
-
-
-
-    const link = svg.append("g")
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.6)
+    var link = svg.append("g")
+      .attr("class", "links")
       .selectAll("line")
-      .data(links)
-      .enter().append("line").attr("stroke-width", d => Math.sqrt(d.value));
-    //
+      .data(graph.links)
+      .enter().append("line")
+      .attr("stroke-width", function (d) { return Math.sqrt(d.value); });
 
+    var node = svg.append("g")
+      .attr("class", "nodes")
+      .selectAll("g")
+      .data(graph.nodes)
+      .enter().append("g")
 
-    console.log(link);
-    // const node = svg.append("g")
-    //   .attr("stroke", "#fff")
-    //   .attr("stroke-width", 1.5)
-    //   .selectAll("circle")
-    //   .data(nodes)
-    //   .join("circle")
-    //   .attr("r", 5)
-    //   .attr("fill", color)
-    //   .call(drag(simulation));
+    var circles = node.append("circle")
+      .attr("r", 5)
+      .attr("fill", function (d) { return color(d.group); })
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
 
-    // node.append("title")
-    //   .text(d => d.id);
+    var lables = node.append("text")
+      .text(function (d) {
+        return d.id;
+      })
+      .attr('x', 6)
+      .attr('y', 3);
 
-    // simulation.on("tick", () => {
-    //   link
-    //     .attr("x1", d => d.source.x)
-    //     .attr("y1", d => d.source.y)
-    //     .attr("x2", d => d.target.x)
-    //     .attr("y2", d => d.target.y);
+    node.append("title")
+      .text(function (d) { return d.id; });
 
-    //   node
-    //     .attr("cx", d => d.x)
-    //     .attr("cy", d => d.y);
-    // });
+    simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked);
 
-    // invalidation.then(() => simulation.stop());
+    simulation.force("link")
+      .links(graph.links);
 
-    // return svg.node();
+    function ticked() {
+      link
+        .attr("x1", function (d) { return d.source.x; })
+        .attr("y1", function (d) { return d.source.y; })
+        .attr("x2", function (d) { return d.target.x; })
+        .attr("y2", function (d) { return d.target.y; });
+
+      node
+        .attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+    }
   });
 
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
 
-  // let obj = JSON.parse(data);
-  // console.log(data);
+  function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
 
-
-  // let chart = {
-  //   const links = data.links.map(d => Object.create(d));
-  //   const nodes = data.nodes.map(d => Object.create(d));
-
-  //   const simulation = d3.forceSimulation(nodes)
-  //     .force("link", d3.forceLink(links).id(d => d.id))
-  //     .force("charge", d3.forceManyBody())
-  //     .force("center", d3.forceCenter(width / 2, height / 2));
-
-  //   const svg = d3.create("svg")
-  //     .attr("viewBox", [0, 0, width, height]);
-
-  //   const link = svg.append("g")
-  //     .attr("stroke", "#999")
-  //     .attr("stroke-opacity", 0.6)
-  //     .selectAll("line")
-  //     .data(links)
-  //     .join("line")
-  //     .attr("stroke-width", d => Math.sqrt(d.value));
-
-  //   const node = svg.append("g")
-  //     .attr("stroke", "#fff")
-  //     .attr("stroke-width", 1.5)
-  //     .selectAll("circle")
-  //     .data(nodes)
-  //     .join("circle")
-  //     .attr("r", 5)
-  //     .attr("fill", color)
-  //     .call(drag(simulation));
-
-  //   node.append("title")
-  //     .text(d => d.id);
-
-  //   simulation.on("tick", () => {
-  //     link
-  //       .attr("x1", d => d.source.x)
-  //       .attr("y1", d => d.source.y)
-  //       .attr("x2", d => d.target.x)
-  //       .attr("y2", d => d.target.y);
-
-  //     node
-  //       .attr("cx", d => d.x)
-  //       .attr("cy", d => d.y);
-  //   });
-
-  //   invalidation.then(() => simulation.stop());
-
-  //   return svg.node();
-  // }
-  // console.log(chart);
-
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
 }
-
 
 document.querySelector('input').value = "Gold";
 
