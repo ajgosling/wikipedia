@@ -1,12 +1,17 @@
 async function start() {
-
+  let startName = document.querySelector('input').value;
+  let doc = await wtf.fetch(startName, "en");
+  console.log(doc.links());
   var middleText = document.querySelector("#middle");
 
-  console.log(middleText)
-  var svg = d3.select("svg"),
-      width = +svg.attr("width"),
-      height = +svg.attr("height");
+  console.log(middleText);
 
+  var svg = d3.select("svg");
+  var width = +svg.attr("width");
+  var height = +svg.attr("height");
+
+  console.log(width);
+  console.log(height);
   var color = d3.scaleOrdinal(d3.schemeCategory20);
 
   var simulation = d3.forceSimulation()
