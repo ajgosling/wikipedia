@@ -1,11 +1,7 @@
-async function start() {
-  let startName = document.querySelector('input').value;
-  let doc = await wtf.fetch(startName, "en");
-  var middleText = document.querySelector("#middle");
+async function startMiserables() {
 
 
   var svg = d3.select(".legit");
-  console.log(svg);
   var width = +svg.attr("width");
   var height = +svg.attr("height");
 
@@ -20,9 +16,6 @@ async function start() {
   d3.json("miserables.json", function (error, graph) {
       if (error) throw error;
 
-      var linksNames = doc.links();
-      console.log("wiki", linksNames);
-      console.log("graph", graph.nodes);
       var link = svg.append("g")
           .attr("class", "links")
           .selectAll("line")
@@ -94,7 +87,20 @@ async function start() {
 
 }
 
-async function startSecond() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function startWiki() {
 
   let startName = document.querySelector('input').value;
   let doc = await wtf.fetch(startName, "en");
@@ -200,8 +206,7 @@ document.querySelector('input').value = "Gold";
 
 let startButton = document.getElementById("begin");
 
-startButton.onclick = start;
-startButton.onclick = startSecond;
+// startButton.onclick = start;
 
 document.addEventListener('keydown', e => {
   if (e.code === "Enter") {
@@ -209,8 +214,8 @@ document.addEventListener('keydown', e => {
   }
 });
 
-start();
-startSecond();
+startMiserables();
+startWiki();
 
 
 
