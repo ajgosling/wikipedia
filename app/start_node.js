@@ -115,22 +115,30 @@ async function startWiki() {
   var color = d3.scaleOrdinal(d3.schemeCategory20);
 
   var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function (d) { return d.id; }))
+    .force("link", d3.forceLink().id(function (d) {
+      return d.id;
+     }))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
   d3.json("miserables.json", function (error, graph) {
     if (error) throw error;
 
+    //object
     var linkNames = doc.links();
 
+    const wikiLinks = {};
+
     // iterate through linkNames and make key of x and key of y
-    linkNames.forEach(link => {
+    linkNames.forEach((link, idx) => {
+      // obj[idx] =
+      link.id = link.text;
       link.x = 100;
       link.y = 100;
     })
     console.log("wiki", linkNames);
-    console.log("graph", graph.nodes);
+    console.log("nodes", graph.nodes);
+    console.log("links", graph.links);
 
     var link = svg.append("g")
       .attr("class", "links")
@@ -155,13 +163,13 @@ async function startWiki() {
 
     var lables = node.append("text")
       .text(function (d) {
-        return d.text;
+        return d.id;
       })
       .attr('x', 6)
       .attr('y', 3);
 
     node.append("title")
-      .text(function (d) { return d.text; });
+      .text(function (d) { return d.id; });
 
     simulation
       .nodes(graph.nodes)
@@ -202,7 +210,7 @@ async function startWiki() {
   }
 }
 
-document.querySelector('input').value = "Gold";
+document.querySelector('input').value = "Melee";
 
 let startButton = document.getElementById("begin");
 
