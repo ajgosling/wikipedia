@@ -1,0 +1,191 @@
+{
+    "nodes": [
+        {
+            "id": "Melee",
+            "group": 2
+
+        },
+        {
+            "id": "Hand-to-hand combat",
+            "group": 2
+        },
+        {
+            "id": "Close combat",
+            "group": 2
+        },
+        {
+            "id": "Plutarch",
+            "group": 2
+        },
+        {
+            "id": "Sir Thomas North",
+            "group": 2
+        },
+        {
+            "id": "Shakespeare",
+            "group": 2
+        },
+        {
+            "id": "Richard III (play)",
+            "group": 2
+        },
+        {
+            "id": ":wikt:medley",
+            "group": 2
+        },
+        {
+            "id": ":wikt:meddle",
+            "group": 2
+        },
+        {
+            "id": "Lord Nelson",
+            "group": 2
+        },
+        {
+            "id": "Battle of Trafalgar",
+            "group": 2
+        },
+        {
+            "id": "Royal Navy",
+            "group": 2
+        },
+        {
+            "id": "Destroyer",
+            "group": 2
+        },
+        {
+            "id": "Naval Battle of Guadalcanal",
+            "group": 2
+        },
+        {
+            "id": "Close quarters combat",
+            "group": 2
+        },
+        {
+            "id": "Melee (gaming)",
+            "group": 2
+        },
+        {
+            "id": "Combat",
+            "group": 2
+        },
+        {
+            "id": "Melee weapon",
+            "group": 2
+        },
+        {
+            "id": "Galley tactics",
+            "group": 2
+        },
+        {
+            "id": "Chance medley",
+            "group": 2
+        },
+        {
+            "id": "Super Smash Bros. Melee",
+            "group": 2
+        }
+    ],
+    "links": [
+        {
+            "source": "Melee",
+            "target": "Hand-to-hand combat",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Close combat",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Plutarch",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Sir Thomas North",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Shakespeare",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Richard III (play)",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": ":wikt:medley",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": ":wikt:meddle",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Lord Nelson",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Battle of Trafalgar",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Royal Navy",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Destroyer",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Naval Battle of Guadalcanal",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Close quarters combat",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Melee (gaming)",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Combat",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Melee weapon",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Galley tactics",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Chance medley",
+            "value": 2
+        },
+        {
+            "source": "Melee",
+            "target": "Super Smash Bros. Melee",
+            "value": 2
+        }
+    ]
+}

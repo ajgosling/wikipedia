@@ -14,6 +14,7 @@ async function startMiserables() {
   d3.json("miserables.json", function (error, graph) {
       if (error) throw error;
 
+      console.log(graph);
       var link = svg.append("g")
           .attr("class", "links")
           .selectAll("line")
@@ -119,25 +120,37 @@ async function startWiki() {
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-  d3.json("miserables.json", function (error, graph) {
+  d3.json("wiki.json", function (error, graph) {
     if (error) throw error;
 
-    //object
-    var linkNames = {};
+    // const startPageObject = {
+    //   "id": startName,
+    //   group: 2
+    // }
 
-    const wikiLinks = {};
+    // //object
+    // const linkNames = [];
+
+    // const wikiLinks = [];
+
+
 
     // iterate through linkNames and make key of x and key of y
-    doc.links().forEach((link, idx) => {
-      // obj[idx] =
-      link.id = link.text;
-      // link.x = 100;
-      // link.y = 100;
-    })
-    console.log("wiki", linkNames);
-    // console.log("nodes", graph.nodes);
-    // console.log("links", graph.links);
-    // links structure: source: {sourceNode}, target: {targetNode}, value, index
+
+    // doc.links().forEach((link, idx) => {
+    //   linkNames.push({
+    //     "id": link.page,
+    //     "group": 2
+    //   })
+    //   wikiLinks.push({
+    //     "source": startName,
+    //     "target": link.page,
+    //     "value": 2
+    //   })
+    // })
+
+
+
 
     var link = svg.append("g")
       .attr("class", "links")
@@ -149,7 +162,7 @@ async function startWiki() {
     var node = svg.append("g")
       .attr("class", "nodes")
       .selectAll("g")
-      .data(linkNames)
+      .data(graph.nodes)
       .enter().append("g")
 
     var circles = node.append("circle")
