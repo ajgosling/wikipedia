@@ -1,6 +1,4 @@
 async function startMiserables() {
-
-
   var svg = d3.select(".legit");
   var width = +svg.attr("width");
   var height = +svg.attr("height");
@@ -125,20 +123,21 @@ async function startWiki() {
     if (error) throw error;
 
     //object
-    var linkNames = doc.links();
+    var linkNames = {};
 
     const wikiLinks = {};
 
     // iterate through linkNames and make key of x and key of y
-    linkNames.forEach((link, idx) => {
+    doc.links().forEach((link, idx) => {
       // obj[idx] =
       link.id = link.text;
-      link.x = 100;
-      link.y = 100;
+      // link.x = 100;
+      // link.y = 100;
     })
     console.log("wiki", linkNames);
-    console.log("nodes", graph.nodes);
-    console.log("links", graph.links);
+    // console.log("nodes", graph.nodes);
+    // console.log("links", graph.links);
+    // links structure: source: {sourceNode}, target: {targetNode}, value, index
 
     var link = svg.append("g")
       .attr("class", "links")
