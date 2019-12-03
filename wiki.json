@@ -2,24 +2,24 @@
     "nodes": [
         {
             "id": "Melee",
-            "group": 2
+            "group": 3
 
         },
         {
             "id": "Hand-to-hand combat",
-            "group": 2
+            "group": 4
         },
         {
             "id": "Close combat",
-            "group": 2
+            "group": 4
         },
         {
             "id": "Plutarch",
-            "group": 2
+            "group": 4
         },
         {
             "id": "Sir Thomas North",
-            "group": 2
+            "group": 4
         },
         {
             "id": "Shakespeare",
@@ -135,7 +135,7 @@
         {
             "source": "Melee",
             "target": "Battle of Trafalgar",
-            "value": 2
+            "value": 4
         },
         {
             "source": "Melee",
