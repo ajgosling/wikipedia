@@ -92,12 +92,6 @@
 
 
 
-
-
-
-
-
-
 async function startWiki() {
 
   let startName = document.querySelector('input').value;
@@ -111,13 +105,19 @@ async function startWiki() {
   // color is a function that returns a hexadecimal color when invoked
   var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-  var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function (d) {
+  var myForceLink = d3
+    .forceLink().id(function (d) {
       return d.id;
-     }))
+    })
+    .distance(function (d) {
+      return 100;
+    })
+    .strength(0.1);
+
+  var simulation = d3.forceSimulation()
+    .force("link", myForceLink)
     .force("charge", d3.forceManyBody(-40))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    // .forceCollide(10);
 
   const startPageObject = {
     "id": startName,
