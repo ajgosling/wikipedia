@@ -117,7 +117,8 @@ async function startWiki() {
      }))
     .force("charge", d3.forceManyBody(-40))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    .forceCollide(10)
+    // .forceCollide(10);
+
   const startPageObject = {
     "id": startName,
     group: 1
