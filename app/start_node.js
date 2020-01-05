@@ -186,6 +186,10 @@ async function startWiki() {
   simulation.force("link")
     .links(wikiLinks);
 
+  console.log(wikiNodes);
+  simulation.stop();
+  wikiNodes.push({id: "4", group: 2});
+  simulation.restart();
   function ticked() {
     link
       .attr("x1", function (d) { return d.source.x; })

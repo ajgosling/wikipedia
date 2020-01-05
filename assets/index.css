@@ -17,11 +17,8 @@
   background-color: blue;
 }
 
-#wikiverse {
-  width: 960px;
-  height: 600px;
-
-  background-color: red;
+svg {
+  border: 1px solid red;
 }
 
 .links line {
