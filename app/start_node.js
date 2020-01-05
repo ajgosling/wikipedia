@@ -92,7 +92,7 @@
 
 
 
-async function startWiki() {
+async function startWiki(nodes = []) {
 
   let startName = document.querySelector('input').value;
   let doc = await wtf.fetch(startName, "en");
@@ -125,21 +125,23 @@ async function startWiki() {
   };
 
 
-  const wikiNodes = [startPageObject];
+  if (nodes.length === 0) {
+    nodes.push(startPageObject);
+  }
 
-  const wikiLinks = [];
+  const links = [];
 
 
 
   // // iterate through linkNames and make key of x and key of y
 
   doc.links().forEach((link) => {
-    wikiNodes.push({
+    nodes.push({
       "id": link.page,
       "group": 2
     });
 
-    wikiLinks.push({
+    links.push({
       "source": startName,
       "target": link.page,
       "value": 2
@@ -151,14 +153,14 @@ async function startWiki() {
   var link = svg.append("g")
     .attr("class", "links")
     .selectAll("line")
-    .data(wikiLinks)
+    .data(links)
     .enter().append("line")
     .attr("stroke-width", function (d) { return Math.sqrt(d.value); });
 
   var node = svg.append("g")
     .attr("class", "nodes")
     .selectAll("g")
-    .data(wikiNodes)
+    .data(nodes)
     .enter().append("g");
 
   var circles = node.append("circle")
@@ -180,16 +182,13 @@ async function startWiki() {
     .text(function (d) { return d.id; });
 
   simulation
-    .nodes(wikiNodes)
+    .nodes(nodes)
     .on("tick", ticked);
 
   simulation.force("link")
-    .links(wikiLinks);
+    .links(links);
 
-  console.log(wikiNodes);
-  simulation.stop();
-  wikiNodes.push({id: "4", group: 2});
-  simulation.restart();
+  restart();
   function ticked() {
     link
       .attr("x1", function (d) { return d.source.x; })
@@ -218,6 +217,24 @@ async function startWiki() {
     if (!d3.event.active) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
+  }
+  function restart() {
+
+    nodes.push({id: "hiiiiiiiiii", group: 2});
+    // Apply the general update pattern to the nodes.
+    node = node.data(nodes, function (d) { return d.id; });
+    node.exit().remove();
+    node = node.enter().append("circle").attr("fill", function (d) { return color(d.id); }).attr("r", 8).merge(node);
+
+    // Apply the general update pattern to the links.
+    link = link.data(links, function (d) { return d.source.id + "-" + d.target.id; });
+    link.exit().remove();
+    link = link.enter().append("line").merge(link);
+
+    // Update and restart the simulation.
+    simulation.nodes(nodes);
+    simulation.force("link").links(links);
+    simulation.alpha(1).restart();
   }
 }
 
