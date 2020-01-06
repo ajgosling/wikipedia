@@ -250,5 +250,4 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// startMiserables();
 startWiki();
