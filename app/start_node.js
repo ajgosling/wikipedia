@@ -90,7 +90,8 @@
 
 
 
-
+const links = [];
+let chain_length = 1;
 
 async function startWiki(nodes = []) {
 
@@ -129,7 +130,6 @@ async function startWiki(nodes = []) {
     nodes.push(startPageObject);
   }
 
-  const links = [];
 
 
 
@@ -138,7 +138,7 @@ async function startWiki(nodes = []) {
   doc.links().forEach((link) => {
     nodes.push({
       "id": link.page,
-      "group": 2
+      "group": chain_length
     });
 
     links.push({
@@ -147,8 +147,6 @@ async function startWiki(nodes = []) {
       "value": 2
     });
   });
-
-
 
   var link = svg.append("g")
     .attr("class", "links")
@@ -220,7 +218,7 @@ async function startWiki(nodes = []) {
   }
   function restart() {
 
-    nodes.push({id: "hiiiiiiiiii", group: 2});
+    // nodes.push({id: "hiiiiiiiiii", group: 2});
     // Apply the general update pattern to the nodes.
     node = node.data(nodes, function (d) { return d.id; });
     node.exit().remove();
