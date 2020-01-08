@@ -1,12 +1,9 @@
-
-
 const nodes = [];
 const links = [];
 let chain_length = 1;
 
 async function startWiki(startName) {
 
-  let startName = document.querySelector('input').value;
   let doc = await wtf.fetch(startName, "en");
 
 
@@ -29,7 +26,7 @@ async function startWiki(startName) {
   var simulation = d3.forceSimulation()
     .force("link", myForceLink)
     .force("charge", d3.forceManyBody(-40))
-    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("center", d3.forceCenter(width / 2, height / 2));
 
   const startPageObject = {
     "id": startName,
@@ -55,34 +52,35 @@ async function startWiki(startName) {
       if (node.id == link.page) {
         console.log("here");
       }
-    })
-  })
-
-  doc.links().forEach((link) => {
-    exists = false;
-    nodes.forEach((node) => {
-      if (link.page === node.id) {
-        // node already exists, set up a link between them
-        links.push({
-          source: node.id,
-          group: chain_length
-        })
-        exists = true;
-        break;
-      }
-    });
-  }
-    nodes.push({
-      "id": link.page,
-      "group": chain_length
-    });
-
-    links.push({
-      "source": startName,
-      "target": link.page,
-      "value": 2
     });
   });
+
+  // doc.links().forEach((link) => {
+  //   exists = false;
+  //   for(let i = 0; i < nodes.length; i++) {
+  //     if(link.page === nodes[i].id) {
+  //       // node already exists, set up a link between them
+  //       links.push({
+  //         source: nodes[i].id,
+  //         target: link.page,
+  //         group: chain_length
+  //       });
+  //       break;
+  //     } else {
+  //       // new wikipedia article, make a node for it AND new link
+  //       nodes.push({
+  //         id: link.page,
+  //         group: chain_length
+  //       });
+  //       links.push({
+  //         source: startName,
+  //         target: link.page,
+  //         value: 2
+  //       });
+  //     }
+  //   }
+  // });
+
 
   var link = svg.append("g")
     .attr("class", "links")
@@ -122,7 +120,6 @@ async function startWiki(startName) {
   simulation.force("link")
     .links(links);
 
-  restart();
   function ticked() {
     link
       .attr("x1", function (d) { return d.source.x; })
@@ -152,24 +149,24 @@ async function startWiki(startName) {
     d.fx = null;
     d.fy = null;
   }
-  function restart() {
+  // function restart() {
 
-    // nodes.push({id: "hiiiiiiiiii", group: 2});
-    // Apply the general update pattern to the nodes.
-    node = node.data(nodes, function (d) { return d.id; });
-    node.exit().remove();
-    node = node.enter().append("circle").attr("fill", function (d) { return color(d.id); }).attr("r", 8).merge(node);
+  //   // nodes.push({id: "hiiiiiiiiii", group: 2});
+  //   // Apply the general update pattern to the nodes.
+  //   node = node.data(nodes, function (d) { return d.id; });
+  //   node.exit().remove();
+  //   node = node.enter().append("circle").attr("fill", function (d) { return color(d.id); }).attr("r", 8).merge(node);
 
-    // Apply the general update pattern to the links.
-    link = link.data(links, function (d) { return d.source.id + "-" + d.target.id; });
-    link.exit().remove();
-    link = link.enter().append("line").merge(link);
+  //   // Apply the general update pattern to the links.
+  //   link = link.data(links, function (d) { return d.source.id + "-" + d.target.id; });
+  //   link.exit().remove();
+  //   link = link.enter().append("line").merge(link);
 
-    // Update and restart the simulation.
-    simulation.nodes(nodes);
-    simulation.force("link").links(links);
-    simulation.alpha(1).restart();
-  }
+  //   // Update and restart the simulation.
+  //   simulation.nodes(nodes);
+  //   simulation.force("link").links(links);
+  //   simulation.alpha(1).restart();
+  // }
 }
 
 document.querySelector('input').value = "Melee";
@@ -184,4 +181,5 @@ document.addEventListener('keydown', e => {
   }
 });
 
-startWiki();
+let startName = document.querySelector('input').value;
+startWiki(startName);
