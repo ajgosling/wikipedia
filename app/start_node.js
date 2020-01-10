@@ -5,6 +5,9 @@ let chain_length = 1;
 async function startWiki(startName) {
   let doc = await wtf.fetch(startName, "en");
 
+  // if (simulation) {
+  //   simulation.stop();
+  // }
 
   var svg = d3.select("svg");
   var width = +svg.attr("width");
