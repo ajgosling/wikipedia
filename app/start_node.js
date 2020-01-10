@@ -3,11 +3,12 @@ const links = [];
 let chain_length = 1;
 
 async function startWiki(startName) {
+
   let doc = await wtf.fetch(startName, "en");
 
-  // if (simulation) {
-  //   simulation.stop();
-  // }
+  if (simulation) {
+    simulation.stop();
+  }
 
   var svg = d3.select("svg");
   var width = +svg.attr("width");
@@ -35,6 +36,7 @@ async function startWiki(startName) {
     group: 1
   };
 
+  console.log(nodes);
 
   if (nodes.length === 0) {
     nodes.push(startPageObject);
@@ -45,8 +47,6 @@ async function startWiki(startName) {
   // if it is, make a link for the node that already exists
   // else, shovel a new node into nodes
 
-
-  // // iterate through linkNames and make key of x and key of y
 
   doc.links().forEach((link) => {
     nodes.forEach((node) => {
@@ -123,7 +123,6 @@ async function startWiki(startName) {
   simulation.force("link")
     .links(links);
 
-  setTimeout(restart, 2000);
   function ticked() {
     link
       .attr("x1", function (d) { return d.source.x; })
@@ -153,28 +152,24 @@ async function startWiki(startName) {
     d.fx = null;
     d.fy = null;
   }
+  // function restart() {
 
-  function restart() {
+  //   // nodes.push({id: "hiiiiiiiiii", group: 2});
+  //   // Apply the general update pattern to the nodes.
+  //   node = node.data(nodes, function (d) { return d.id; });
+  //   node.exit().remove();
+  //   node = node.enter().append("circle").attr("fill", function (d) { return color(d.id); }).attr("r", 8).merge(node);
 
-    nodes.push({id: "hiiiiiiiiii", group: 2});
-    links.push({source: "hiiiiiiiiii", target: "Melee", value: 2})
-    console.log(nodes);
-    // Apply the general update pattern to the nodes.
-    console.log(node);
-    node = node.data(nodes, function (d) { return d.id; });
-    node.exit().remove();
-    node = node.enter().append("circle").attr("fill", function (d) { return color(d.id); }).attr("r", 8).merge(node);
+  //   // Apply the general update pattern to the links.
+  //   link = link.data(links, function (d) { return d.source.id + "-" + d.target.id; });
+  //   link.exit().remove();
+  //   link = link.enter().append("line").merge(link);
 
-    // Apply the general update pattern to the links.
-    link = link.data(links, function (d) { return d.source.id + "-" + d.target.id; });
-    link.exit().remove();
-    link = link.enter().append("line").merge(link);
-
-    // Update and restart the simulation.
-    simulation.nodes(nodes);
-    simulation.force("link").links(links);
-    simulation.alpha(1).restart();
-  }
+  //   // Update and restart the simulation.
+  //   simulation.nodes(nodes);
+  //   simulation.force("link").links(links);
+  //   simulation.alpha(1).restart();
+  // }
 }
 
 document.querySelector('input').value = "Melee";
@@ -191,4 +186,3 @@ document.addEventListener('keydown', e => {
 
 let startName = document.querySelector('input').value;
 startWiki(startName);
-// setTimeout(startWiki("Gold"), 2000);
